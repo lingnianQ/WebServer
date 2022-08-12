@@ -34,8 +34,12 @@ public class ClientHandler implements Runnable {
                 sb.append(cur);
                 pre = cur;
             }
-            String sb1 =  sb.toString();
-            System.out.println(sb1);
+            String sb1 = sb.toString().trim();
+            String[] data = sb1.split("\\s");
+            String method = data[0];
+            String uri = data[1];
+            String protocol = data[2];
+            System.out.println("method: " + method + "\nuri: " + uri + "\nprotocol: " + protocol);
         } catch (IOException e) {
             e.printStackTrace();
         }
