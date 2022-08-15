@@ -42,7 +42,7 @@ public class ClientHandler implements Runnable {
                 if (line.isEmpty()) {
                     break;
                 }
-                String[] data1 = line.split("\\:\\s");
+                String[] data1 = line.split(":\\s");
                 String key = data1[0];
                 String value = data1[1];
                 map.put(key, value);
@@ -77,5 +77,4 @@ public class ClientHandler implements Runnable {
         return sb.toString().trim();
     }
 
-//javaWeb
 }
