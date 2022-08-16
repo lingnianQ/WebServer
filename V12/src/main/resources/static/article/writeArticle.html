@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发表文章页面</title>
+</head>
+<body>
+<div style="text-align: center">
+    <a href="https://suulnnka.github.io/BullshitGenerator/index.html">文章生成器</a>
+    <a href="/articleList">文章列表</a>
+    <form action="/writeArticle" method="get">
+        <table border="1" style="margin: auto">
+            <tr>
+                <td>
+                    <label>
+                        标题：<input type="text" name="title">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        作者：<input type="text" name="author">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        <textarea rows="40" cols="100" name="content"></textarea>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="发表文章">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <a href="../index.html">返回首页</a>
+</div>
+</body>
+</html>
