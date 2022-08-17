@@ -6,10 +6,7 @@ import com.webserver.entity.User;
 import com.webserver.http.HttpServletRequest;
 import com.webserver.http.HttpServletResponse;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.URISyntaxException;
 
 /**
@@ -21,10 +18,39 @@ public class UserController {
     private static File userDir;
 
     static {
-        userDir = new File("V14/src/main/resources/template/user");
+        userDir = new File("V14/src/main/resources/template/users");
         if (!userDir.exists()) {
             userDir.mkdirs();
         }
+    }
+
+    /**
+     * 用户登录
+     * @param request
+     * @param response
+     */
+    public void login(HttpServletRequest request, HttpServletResponse response) {
+        String username = request.getParameters("username");
+        String password = request.getParameters("password");
+        User user = new User(username, password);
+
+        File file = new File(userDir, username + ".obj");
+        if (!file.exists() || username == null || password == null || username.isEmpty() || password.isEmpty()) {
+            response.sendRedirect("/login/login_info_error.html");
+            return;
+        }
+
+        try (FileInputStream fis = new FileInputStream(file);
+             ObjectInputStream ois = new ObjectInputStream(fis);) {
+            User user1 = (User) ois.readObject();
+            if (user.getName().equals(user1.getName())&&user.getPassword().equals(user1.getPassword())){
+                response.sendRedirect("/login/login_success.html");
+                return;
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        response.sendRedirect("/login/login_fail.html");
     }
 
     /**

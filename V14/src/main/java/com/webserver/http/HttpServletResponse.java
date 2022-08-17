@@ -33,24 +33,6 @@ public class HttpServletResponse {
     //响应正文相关信息
     private File contentFile;//正文对应的实体文件
 
-    private static File dir;
-    private static File staticDir;
-
-    static {
-        //定位环境变量ClassPath(类加载路径)中"."的位置
-        //在IDEA中执行项目时,类加载路径是从target/classes开始的
-        try {
-            dir = new File(
-                    HttpServletResponse.class.getClassLoader()
-                            .getResource(".").toURI()
-            );
-            //定位target/classes/static目录
-            staticDir = new File(dir, "static");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-    }
-
     public HttpServletResponse(Socket socket) {
         this.socket = socket;
     }
@@ -166,7 +148,9 @@ public class HttpServletResponse {
     }
 
     public void sendRedirect(String s) {
-        File file = new File(staticDir, s);
-        setContentFile(file);
+        statusCode = 302;
+        statusReason = "MovedTemporarily";
+        //响应头Location
+        addHeader("Location", s);
     }
 }

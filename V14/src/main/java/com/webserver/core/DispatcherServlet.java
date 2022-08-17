@@ -59,7 +59,12 @@ public class DispatcherServlet {
             userController.regUser(request, response);
             return;
         }
-
+        if("/loginUser".equals(path)){
+            System.out.println("登陆！！！！！！");
+            UserController userController = new UserController();
+            userController.login(request, response);
+            return;
+        }
 
 
         File file = new File(staticDir, path);
