@@ -1,4 +1,4 @@
-package com.webserver.annotation;
+package com.webserver.annotations;
 
 /**
  * @author sytsnb@gmail.com
