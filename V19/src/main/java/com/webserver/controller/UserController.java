@@ -16,7 +16,7 @@ public class UserController {
     private static File userDir;
 
     static {
-        userDir = new File("./users");
+        userDir = new File("V19/src/main/resources/template/users");
         if (!userDir.exists()) {
             userDir.mkdirs();
         }
@@ -34,7 +34,7 @@ public class UserController {
         String password = request.getParameter("password");
 
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-            response.sendRedirect("/login_info_error.html");
+            response.sendRedirect("/login/login_info_error.html");
             return;
         }
 
@@ -54,7 +54,7 @@ public class UserController {
                 //a.equalsIgnoreCase(b) ==> true
                 if (user.getPassword().equals(password)) {
                     //登录成功
-                    response.sendRedirect("/login_success.html");
+                    response.sendRedirect("/login/login_success.html");
                     return;
                 }
             } catch (IOException | ClassNotFoundException e) {
@@ -63,7 +63,7 @@ public class UserController {
         }
 
         //登录失败
-        response.sendRedirect("/login_fail.html");
+        response.sendRedirect("/login/login_fail.html");
     }
 
     @RequestMapping("/regUser")
@@ -78,7 +78,7 @@ public class UserController {
         if (username == null || username.isEmpty() || password == null || password.isEmpty() ||
                 nickname == null || nickname.isEmpty() || ageStr == null || ageStr.isEmpty() ||
                 !ageStr.matches("[0-9]+")) {
-            response.sendRedirect("/reg_info_error.html");
+            response.sendRedirect("/register/reg_info_error.html");
             return;
         }
 
@@ -87,7 +87,7 @@ public class UserController {
 
         File file = new File(userDir, username + ".obj");
         if (file.exists()) {//文件已经存在说明是重复用户
-            response.sendRedirect("/have_user.html");
+            response.sendRedirect("/register/have_user.html");
             return;
         }
 
@@ -99,7 +99,7 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        response.sendRedirect("/reg_success.html");
+        response.sendRedirect("/register/reg_success.html");
 
     }
 }
